@@ -36,8 +36,29 @@ console.log(ob);
 
 // Object
 
+const _obj = {
+  '': 5,
+};
+
 // Array
 
 // function
 
-// this
+function a() {
+  console.log('a함수가 실행됐습니다.');
+}
+
+// this : 나를 호출한 대상
+const obj = {
+  name: 'tiger',
+  age: 30,
+  sayHi: function () {
+    console.log(this);
+  },
+  sayHi2: () => {
+    console.log(this);
+  },
+  sayHi3() {
+    console.log(this);
+  },
+};
