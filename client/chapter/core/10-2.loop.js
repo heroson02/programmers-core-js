@@ -1,38 +1,13 @@
-function calcJunukTime(hour, minute) {
-  /* --------------- 제한 조건 설정 -------------------------------- */
-  /* ---- 알고리즘 문제를 풀땐 따로 설정하지 않아도 괜찮지만 우리는 공부중이니까요^^ ------ */
-  if (
-    hour % 1 !== 0 ||
-    minute % 1 !== 0 ||
-    hour < 0 ||
-    minute < 0 ||
-    hour > 24 ||
-    minute > 60
-  ) {
-    console.log('당신은 혹시 시간의 마법사인가요?');
-  } else {
-    let junukHour = hour;
-    let junukMinute = minute;
-    if ((hour >= 8) & (hour < 10)) {
-      console.log('10:10');
-    } else if ((hour >= 10) & (hour < 15)) {
-      junukHour = hour + 1;
-      junukMinute = minute + 20;
-      calcTime(junukHour, junukMinute);
-    } else if ((hour >= 15) & (hour < 23)) {
-      junukMinute = minute + 45;
-      calcTime(junukHour, junukMinute);
-    } else {
-      console.log('자라 🐢');
-    }
-  }
-}
-function calcTime(hour, minute) {
-  if (minute >= 60) {
-    hour += 1;
-    minute -= 60;
-  } else {
-    hour += 1;
-  }
-  console.log(`${hour};${minute}`);
-}
+/* -------------------- */
+/* Do While Loop        */
+/* -------------------- */
+
+// do ~ while 문 (역순환)
+// - prompt 창을 띄워 사용자로 하여금 순환 횟수를 요청
+// - 사용자로부터 요청된 횟수 만큼 역방향으로 순환 출력
+// - 사용자로부터 요청된 횟수가 0보다 작을 경우,
+//   '최초 실행된 메시지입니다. 이 메시지는 조건이 거짓이어도 볼 수 있습니다.' 출력
+// - 순환 중단
+
+// do ~ while 문 (순환)
+// - 위 do ~ while 문을 순방향으로 순환되도록 설정
