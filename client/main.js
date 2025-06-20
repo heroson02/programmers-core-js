@@ -1,67 +1,36 @@
-import { diceAnimation } from './lib/animation/cube.js';
-import {
-  clearContents,
-  getNode,
-  getRandom,
-  insertLast,
-  copy,
-  isNumber,
-  isUndefined,
-  attr,
-} from './lib/index.js';
+import { tiger, getNode, insertLast, renderSpinner, renderUserCard, delayP, changeColor } from "./lib/index.js";
+const END_POINT = 'https://jsonplaceholder.typicode.com/users';
+const userCardinner = getNode('.user-card-inner');
 
-import {} from './lib/index.js';
+async function renderUserList() {
+	renderSpinner(userCardinner);
+  try {
+    const { data } = await tiger.get(END_POINT);
 
-const [diceRoll, record, initialize] = document.querySelectorAll(
-  '.buttonGroup button'
-);
-const recordListWrapper = getNode('.recordListWrapper');
+		await delayP(2000);
 
+		getNode('.loadingSpinner').remove();
 
-function handleRollingDice(){
-	let isClicked = false;
-	let id;
-	return (() => {
-		if (!isClicked)
-		{
-			id = setInterval(diceAnimation, 100);
-			console.log('on');
-			record.disabled = true;
-			initialize.disabled = true;
-		}
-		else
-		{
-			clearInterval(id);
-			console.log('off');
-			record.disabled = false;
-			initialize.disabled = false;
-		}
-		isClicked = !isClicked;
-	})
+    data.forEach(( {name, email} ) => {
+			const template = `<article class="user-card" data-index="user-1">
+          <h3 class="user-name">${name}</h3>
+          <div class="user-resouce-info">
+            <div>
+              <a class="user-email" href="mailto:tiger@euid.dev">${email}</a>
+            </div>
+            <div>
+              <a class="user-website" href="http://tiger.com" target="_blank" rel="noopener noreferer">tiger.com</a>
+            </div>
+          </div>
+          <button class="delete">삭제</button>
+        </article>`;
+			insertLast(userCardinner, template);
+			// renderUserCard(userCardinner, user);
+    });
+		changeColor('.user-card');
+  } catch {
+    console.error('error!');
+  }
 }
 
-let recordList = document.querySelector('tbody');
-console.log(recordList);
-
-let count = 0;
-let total = 0;
-
-function handleRecord(){
-	const diceNumber =  +attr('#cube', 'dice');
-	recordListWrapper.hidden = false;
-	console.log(diceNumber);
-	const template = `<tr>
-            <td>${++count}</td>
-            <td>${diceNumber}</td>
-            <td>${total += diceNumber}</td>
-          </tr>`;
-	insertLast('tbody', template);
-}
-
-function handleReset(){
-
-}
-
-
-diceRoll.addEventListener('click', handleRollingDice());
-record.addEventListener('click', handleRecord);
+renderUserList();
